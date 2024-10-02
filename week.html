@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week Calendar</title>
+<style>
+    .week-box {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+        text-align: center;
+        display: inline-block;
+        position: relative; /* Required for positioning the cross */
+    }
+    .completed {
+        background-color: red;
+    }
+    .completed::after {
+        content: '✗'; /* Cross mark */
+        font-size: 40px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Black color with transparency */
+        color: black;
+        text-align: center;
+        line-height: 100px; /* Center the cross vertically */
+    }
+</style>
+</head>
+<body>
+
+<script>
+// Function to generate week boxes
+function generateWeekBoxes(startDate, endDate) {
+    var currentDate = new Date();
+    var endDate = new Date(endDate);
+    var weekNumber = 1;
+
+    // Loop through weeks
+    while (startDate <= endDate) {
+        var weekBox = document.createElement('div');
+        weekBox.classList.add('week-box');
+        if(weekNumber%15==0){
+             weekBox.textContent = 'Week ' + weekNumber+' Time run fast run as you can ';
+             weekBox.style.backgroundColor='red';
+        }else{
+             weekBox.textContent = 'Week ' + weekNumber;
+        }
+        if (startDate < currentDate) {
+            weekBox.classList.add('completed'); // Add completed class if week has passed
+        }
+        document.body.appendChild(weekBox);
+        
+        // Increment start date by 7 days
+        startDate.setDate(startDate.getDate() + 7);
+        weekNumber++;
+    }
+}
+
+// Generate week boxes from Feb 10, 2024, to Feb 10, 2026
+generateWeekBoxes(new Date('2024-02-10'), new Date('2026-02-10'));
+</script>
+
+</body>
+</html>
+
